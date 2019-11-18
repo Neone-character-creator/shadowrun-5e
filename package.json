@@ -1,0 +1,24 @@
+{
+  "name": "shadowrun-5e",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build": "sh build.sh",
+    "build:watch" : "sh build-watch.sh",
+    "demo:start" : "sh start-demo.sh"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Neone-character-creator/shadowrun-5e.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Neone-character-creator/shadowrun-5e/issues"
+  },
+  "homepage": "https://github.com/Neone-character-creator/shadowrun-5e#readme",
+  "dependencies": {
+    "cross-env": "^6.0.3"
+  }
+}
