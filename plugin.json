@@ -1,0 +1,20 @@
+{
+  "gameName": "Plugin Name",
+  "pluginVersion": "1.0",
+  "authorName": "Your Name Here",
+  "pdfPath": "path/to/your/character/sheet/pdf",
+  "fieldsPath": "path/to/your/character/sheet/mapping/override.json",
+  "views": {
+    "name": "app",
+    "children": []
+  },
+  "model": {
+    "character": {
+      "properties": {
+        "name": "string"
+      }
+    }
+  },
+  "rules": {},
+  "hooks": []
+}
