@@ -2,19 +2,399 @@
   "gameName": "Plugin Name",
   "pluginVersion": "1.0",
   "authorName": "Your Name Here",
-  "pdfPath": "path/to/your/character/sheet/pdf",
-  "fieldsPath": "path/to/your/character/sheet/mapping/override.json",
   "views": {
     "name": "app",
-    "children": []
+    "children": [
+      {
+        "name": "Summary",
+        "type": "view",
+        "children": [
+          {
+            "type": "textfield",
+            "name": "characterName",
+            "label": "Name",
+            "bind": "$state.character.name"
+          }
+        ]
+      },
+      {
+        "name": "Priorities",
+        "type": "view",
+        "children": [
+          {
+            "name": "priorities",
+            "type": "container",
+            "direction": "vertical",
+            "children": [
+              {
+                "name": "priorityA",
+                "type": "container",
+                "direction": "horizontal",
+                "children": [
+                  {
+                    "name": "priorityA",
+                    "type": "label",
+                    "text": "Priority A"
+                  },
+                  {
+                    "name": "priorityA",
+                    "type": "select",
+                    "bind": "$state.character.creation.priorities.A",
+                    "items": {
+                      "values": "#Object.keys($rules.characterCreation.options)",
+                      "translate": "# $rules.characterCreation.options[$this]"
+                    }
+                  },
+                  {
+                    "name": "priorityADescription",
+                    "type": "container",
+                    "children": [
+                      {
+                        "name": "priorityAMetatypeDescription",
+                        "type": "label",
+                        "hiddenWhen": "# _.get($state, 'character.creation.priorities.A') !== 'metatype'",
+                        "text": "# $rules.characterCreation.priorities.A.metatype.options.map(o => o.metatype + ' (' + o.edge + ')').join(', ')"
+                      },
+                      {
+                        "name": "priorityAAttributesDescription",
+                        "type": "label",
+                        "hiddenWhen": "# _.get($state, 'character.creation.priorities.A') !== 'attributes'",
+                        "text": "# $rules.characterCreation.priorities.A.attributePoints"
+                      },
+                      {
+                        "name": "priorityASpecialDescription",
+                        "type": "label",
+                        "hiddenWhen": "# _.get($state, 'character.creation.priorities.A') !== 'special'",
+                        "text": "# $rules.characterCreation.priorities.A.specialOptions.map(o => o.description).join(', ')"
+                      },
+                      {
+                        "name": "priorityASkillsDescription",
+                        "type": "label",
+                        "hiddenWhen": "# _.get($state, 'character.creation.priorities.A') !== 'skills'",
+                        "text": "# $rules.characterCreation.priorities.A.skills.totalPoints + '/' + $rules.characterCreation.priorities.A.skills.maxGroups"
+                      },
+                      {
+                        "name": "priorityAResourcesDescription",
+                        "type": "label",
+                        "hiddenWhen": "# _.get($state, 'character.creation.priorities.A') !== 'resources'",
+                        "text": "# $rules.characterCreation.priorities.A.resources.toLocaleString() + '¥' "
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ]
   },
   "model": {
     "character": {
       "properties": {
-        "name": "string"
+        "name": "string",
+        "creation": "creation"
+      }
+    },
+    "creation": {
+      "properties": {
+        "priorities": "priorities"
+      }
+    },
+    "priorities": {
+      "properties": {
+        "A": "string",
+        "B": "string",
+        "C": "string",
+        "D": "string",
+        "E": "string"
       }
     }
   },
-  "rules": {},
-  "hooks": []
+  "rules": {
+    "characterCreation": {
+      "options": {
+        "metatype": "Metatype",
+        "attributes": "Attributes",
+        "special": "Magic or Resonance",
+        "skills": "Skills",
+        "resources": "Resources"
+      },
+      "priorities": {
+        "A": {
+          "metatype": {
+            "options": [
+              {
+                "metatype": "human",
+                "edge": 9
+              },
+              {
+                "metatype": "elf",
+                "edge": 8
+              },
+              {
+                "metatype": "dwarf",
+                "edge": 7
+              },
+              {
+                "metatype": "ork",
+                "edge": 7
+              },
+              {
+                "metatype": "troll",
+                "edge": 5
+              }
+            ]
+          },
+          "attributePoints": 24,
+          "specialOptions": [
+            {
+              "description": "Magician or Mystic Adept: Magic 6, 2 x Rating 5 Magical Skills, 10 spells ",
+              "types": [
+                "magician",
+                "mystic adept"
+              ],
+              "magicRating": 6,
+              "skills": {
+                "magic": {
+                  "quantity": 2,
+                  "rating": 5
+                }
+              },
+              "spells": 10
+            },
+            {
+              "description": "Technomancer: Resonance 6, 2 x Rating 5 Resonance Skills, 5 complex forms",
+              "types": [
+                "technomancer"
+              ],
+              "resonanceRating": 6,
+              "skills": {
+                "resonance": {
+                  "quantity": 2,
+                  "rating": 5
+                }
+              },
+              "complexForms": 5
+            }
+          ],
+          "skills": {
+            "totalPoints": 46,
+            "maxGroups": 10
+          },
+          "resources": 450000
+        },
+        "B": {
+          "metatype": {
+            "options": [
+              {
+                "metatype": "human",
+                "edge": 7
+              },
+              {
+                "metatype": "elf",
+                "edge": 6
+              },
+              {
+                "metatype": "dwarf",
+                "edge": 4
+              },
+              {
+                "metatype": "ork",
+                "edge": 4
+              },
+              {
+                "metatype": "troll",
+                "edge": 0
+              }
+            ]
+          },
+          "attributePoints": 20,
+          "specialOptions": [
+            {
+              "types": [
+                "magician",
+                "mystic adept"
+              ],
+              "magicRating": 4,
+              "skills": {
+                "magic": {
+                  "quantity": 2,
+                  "rating": 4
+                }
+              },
+              "spells": 7
+            },
+            {
+              "types": [
+                "technomancer"
+              ],
+              "resonanceRating": 4,
+              "resonanceSkills": {
+                "quantity": 2,
+                "rating": 4
+              },
+              "complexForms": 2
+            },
+            {
+              "types": [
+                "adept"
+              ],
+              "magicRating": 6,
+              "skills": {
+                "active": {
+                  "quantity": 1,
+                  "rating": 4
+                }
+              }
+            },
+            {
+              "types": [
+                "aspected magician"
+              ],
+              "magicRating": 5,
+              "skills": {
+                "magic": {
+                  "group": true,
+                  "quantity": 1,
+                  "rating": 4
+                }
+              }
+            }
+          ],
+          "skills": {
+            "totalPoints": 36,
+            "maxGroups": 5
+          },
+          "resources": 275000
+        },
+        "C": {
+          "metatype": {
+            "options": [
+              {
+                "metatype": "human",
+                "edge": 5
+              },
+              {
+                "metatype": "elf",
+                "edge": 3
+              },
+              {
+                "metatype": "dwarf",
+                "edge": 1
+              },
+              {
+                "metatype": "ork",
+                "edge": 0
+              }
+            ]
+          },
+          "attributePoints": 16,
+          "specialOptions": [
+            {
+              "types": [
+                "magician",
+                "mystic adept"
+              ],
+              "magicRating": 3,
+              "spells": 7
+            },
+            {
+              "types": [
+                "technomancer"
+              ],
+              "resonanceRating": 3,
+              "complexForms": 1
+            },
+            {
+              "types": [
+                "adept"
+              ],
+              "magicRating": 4,
+              "skills": {
+                "active": {
+                  "quantity": 1,
+                  "rating": 2
+                }
+              }
+            },
+            {
+              "types": [
+                "aspected magician"
+              ],
+              "magicRating": 3,
+              "skills": {
+                "magic": {
+                  "group": true,
+                  "quantity": 1,
+                  "rating": 2
+                }
+              }
+            }
+          ],
+          "skills": {
+            "totalPoints": 28,
+            "maxGroups": 2
+          },
+          "resources": 140000
+        },
+        "D": {
+          "metatype": {
+            "options": [
+              {
+                "metatype": "human",
+                "edge": 3
+              },
+              {
+                "metatype": "elf",
+                "edge": 0
+              }
+            ]
+          },
+          "attributePoints": 14,
+          "specialOptions": [
+            {
+              "types": [
+                "adept"
+              ],
+              "magicRating": 2
+            },
+            {
+              "types": [
+                "aspected magician"
+              ],
+              "magicRating": 2
+            }
+          ],
+          "skills": {
+            "totalPoints": 22
+          },
+          "resources": 50000
+        },
+        "E": {
+          "metatype": {
+            "options": [
+              {
+                "metatype": "human",
+                "edge": 1
+              }
+            ]
+          },
+          "attributePoints": 12,
+          "specialOptions": [
+          ],
+          "skills": {
+            "totalPoints": 18
+          },
+          "resources": 6000
+        }
+      }
+    }
+  },
+  "hooks": [
+    {
+      "before": "SET",
+      "when": "$this.path === '$state.character.priorities"
+    }
+  ]
 }
