@@ -50,34 +50,9 @@
                     "type": "container",
                     "children": [
                       {
-                        "name": "priorityAMetatypeDescription",
+                        "name": "priorityAChoiceDescription",
                         "type": "label",
-                        "hiddenWhen": "# _.get($state, 'character.creation.priorities.A') !== 'metatype'",
-                        "text": "# $rules.characterCreation.priorities.A.metatype.options.map(o => o.metatype + ' (' + o.edge + ')').join(', ')"
-                      },
-                      {
-                        "name": "priorityAAttributesDescription",
-                        "type": "label",
-                        "hiddenWhen": "# _.get($state, 'character.creation.priorities.A') !== 'attributes'",
-                        "text": "# $rules.characterCreation.priorities.A.attributePoints"
-                      },
-                      {
-                        "name": "priorityASpecialDescription",
-                        "type": "label",
-                        "hiddenWhen": "# _.get($state, 'character.creation.priorities.A') !== 'special'",
-                        "text": "# $rules.characterCreation.priorities.A.specialOptions.map(o => o.description).join(', ')"
-                      },
-                      {
-                        "name": "priorityASkillsDescription",
-                        "type": "label",
-                        "hiddenWhen": "# _.get($state, 'character.creation.priorities.A') !== 'skills'",
-                        "text": "# $rules.characterCreation.priorities.A.skills.totalPoints + '/' + $rules.characterCreation.priorities.A.skills.maxGroups"
-                      },
-                      {
-                        "name": "priorityAResourcesDescription",
-                        "type": "label",
-                        "hiddenWhen": "# _.get($state, 'character.creation.priorities.A') !== 'resources'",
-                        "text": "# $rules.characterCreation.priorities.A.resources.toLocaleString() + '¥' "
+                        "text": "# _.get($rules, 'characterCreation.priorities.A[' +  $state.character.creation.priorities.A + '].description')"
                       }
                     ]
                   }
@@ -123,6 +98,7 @@
       "priorities": {
         "A": {
           "metatype": {
+            "description": "Human (9), Elf (8), Dwarf(7), Ork(7), Troll(5)",
             "options": [
               {
                 "metatype": "human",
@@ -146,43 +122,51 @@
               }
             ]
           },
-          "attributePoints": 24,
-          "specialOptions": [
-            {
-              "description": "Magician or Mystic Adept: Magic 6, 2 x Rating 5 Magical Skills, 10 spells ",
-              "types": [
-                "magician",
-                "mystic adept"
-              ],
-              "magicRating": 6,
-              "skills": {
-                "magic": {
-                  "quantity": 2,
-                  "rating": 5
-                }
+          "attributes": {
+            "description": 24
+          },
+          "special": {
+            "description": "Magician or Mystic Adept: Magic 6, 2 x Rating 5 Magical Skills, 10 spells; Technomancer: Resonance 6, 2 x Rating 5 Resonance Skills, 5 complex forms",
+            "options": [
+              {
+                "description": "Magician or Mystic Adept: Magic 6, 2 x Rating 5 Magical Skills, 10 spells ",
+                "types": [
+                  "magician",
+                  "mystic adept"
+                ],
+                "magicRating": 6,
+                "skills": {
+                  "magic": {
+                    "quantity": 2,
+                    "rating": 5
+                  }
+                },
+                "spells": 10
               },
-              "spells": 10
-            },
-            {
-              "description": "Technomancer: Resonance 6, 2 x Rating 5 Resonance Skills, 5 complex forms",
-              "types": [
-                "technomancer"
-              ],
-              "resonanceRating": 6,
-              "skills": {
-                "resonance": {
-                  "quantity": 2,
-                  "rating": 5
-                }
-              },
-              "complexForms": 5
-            }
-          ],
+              {
+                "description": "Technomancer: Resonance 6, 2 x Rating 5 Resonance Skills, 5 complex forms",
+                "types": [
+                  "technomancer"
+                ],
+                "resonanceRating": 6,
+                "skills": {
+                  "resonance": {
+                    "quantity": 2,
+                    "rating": 5
+                  }
+                },
+                "complexForms": 5
+              }
+            ]
+          },
           "skills": {
+            "description": "46/10",
             "totalPoints": 46,
             "maxGroups": 10
           },
-          "resources": 450000
+          "resources": {
+            "description" : "450000￥"
+          }
         },
         "B": {
           "metatype": {
@@ -210,7 +194,7 @@
             ]
           },
           "attributePoints": 20,
-          "specialOptions": [
+          "special": [
             {
               "types": [
                 "magician",
@@ -290,7 +274,7 @@
             ]
           },
           "attributePoints": 16,
-          "specialOptions": [
+          "special": [
             {
               "types": [
                 "magician",
@@ -352,7 +336,7 @@
             ]
           },
           "attributePoints": 14,
-          "specialOptions": [
+          "special": [
             {
               "types": [
                 "adept"
@@ -381,7 +365,7 @@
             ]
           },
           "attributePoints": 12,
-          "specialOptions": [
+          "special": [
           ],
           "skills": {
             "totalPoints": 18
