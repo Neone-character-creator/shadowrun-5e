@@ -281,6 +281,26 @@
             ]
           }
         ]
+      },
+      {
+        "name": "Metatype and Attributes",
+        "type": "view",
+        "children": [
+          {
+            "name": "chooseMetatype",
+            "type": "select",
+            "bind": "$state.character.creation.metatypeChoice",
+            "items": {
+              "values": "#$rules.characterCreation.priorities[$state.character.creation.priorities.metatype].metatype.options",
+              "translate": "#_.get($models, 'metatype.values[' + $this.metatype + '].name')"
+            }
+          },
+          {
+            "name": "startingEdge",
+            "type": "label",
+            "text": "#'Special Attribute Points: ' + $state.character.creation.metatypeChoice.specialAttributePoints"
+          }
+        ]
       }
     ]
   },
@@ -288,12 +308,20 @@
     "character": {
       "properties": {
         "name": "string",
-        "creation": "creation"
+        "creation": "creation",
+        "metatype": "metatype"
       }
     },
     "creation": {
       "properties": {
-        "priorities": "priorities"
+        "priorities": "priorities",
+        "metatypeChoice": "metatypeChoice"
+      }
+    },
+    "metatypeChoice": {
+      "properties": {
+        "metatype": "string",
+        "specialAttributePoints": "number"
       }
     },
     "priorities": {
@@ -317,8 +345,172 @@
         "E": {
           "type": "string",
           "default": "resources"
+        },
+        "metatype": {
+          "type": "string",
+          "derivedFrom": ["#Object.entries($state.character.creation.priorities).find(p => p[1] === 'metatype')[0]"]
+        },
+        "attributes": {
+          "type": "string",
+          "derivedFrom": ["#Object.entries($state.character.creation.priorities).find(p => p[1] === 'attributes')[0]"]
+        },
+        "special": {
+          "type": "string",
+          "derivedFrom": ["#Object.entries($state.character.creation.priorities).find(p => p[1] === 'special')[0]"]
+        },
+        "skills": {
+          "type": "string",
+          "derivedFrom": ["#Object.entries($state.character.creation.priorities).find(p => p[1] === 'skills')[0]"]
+        },
+        "resources": {
+          "type": "string",
+          "derivedFrom": ["#Object.entries($state.character.creation.priorities).find(p => p[1] === 'resources')[0]"]
         }
       }
+    },
+    "metatype": {
+      "properties": {
+        "id": "string",
+        "name": "string",
+        "minBody": {
+          "type": "number",
+          "default": 1
+        },
+        "maxBody": {
+          "type": "number",
+          "default": 6
+        },
+        "minAgility": {
+          "type": "number",
+          "default": 1
+        },
+        "maxAgility": {
+          "type": "number",
+          "default": 6
+        },
+        "minReaction": {
+          "type": "number",
+          "default": 1
+        },
+        "maxReaction": {
+          "type": "number",
+          "default": 6
+        },
+        "minStrength":{
+          "type": "number",
+          "default": 1
+        },
+        "maxStrength": {
+          "type": "number",
+          "default": 6
+        },
+        "minWillpower": {
+          "type": "number",
+          "default": 1
+        },
+        "maxWillpower": {
+          "type": "number",
+          "default": 6
+        },
+        "minLogic": {
+          "type": "number",
+          "default": 1
+        },
+        "maxLogic": {
+          "type": "number",
+          "default": 6
+        },
+        "minIntuition": {
+          "type": "number",
+          "default": 1
+        },
+        "maxIntuition": {
+          "type": "number",
+          "default": 6
+        },
+        "minCharisma": {
+          "type": "number",
+          "default": 1
+        },
+        "maxCharisma": {
+          "type": "number",
+          "default": 6
+        },
+        "minEdge": {
+          "type": "number",
+          "default": 1
+        },
+        "maxEdge": {
+          "type": "number",
+          "default": 6
+        },
+        "racialTraits": "[trait]"
+      },
+      "values": [
+        {
+          "id": "human",
+          "name": "Human",
+          "minEdge": 2,
+          "maxEdge": 7
+        },
+        {
+          "id": "elf",
+          "name": "Elf",
+          "minAgility": 2,
+          "maxAgility": 7,
+          "minCharisma": 3,
+          "maxCharisma": 8,
+          "racialTraits": [
+            "low-light-vision"
+          ]
+        },
+        {
+          "id": "dwarf",
+          "name": "Dwarf",
+          "minBody": 3,
+          "maxBody": 8,
+          "maxReaction": 5,
+          "minStrength": 3,
+          "maxStrength": 8,
+          "minWillpower": 2,
+          "maxWillpower": 7,
+          "racialTraits": [
+            "dwarf-resistance",
+            "dwarf-lifestyle-increase"
+          ]
+        },
+        {
+          "id": "ork",
+          "name": "Ork",
+          "minBody": 4,
+          "maxBody": 9,
+          "minStrength": 3,
+          "maxStrength": 8,
+          "maxLogic": 5,
+          "maxCharisma": 5,
+          "racialTraits": [
+            "low-light-vision"
+          ]
+        },
+        {
+          "id": "troll",
+          "name": "Troll",
+          "minBody": 5,
+          "maxBody": 10,
+          "maxAgility": 5,
+          "minStrength": 5,
+          "maxStrength": 10,
+          "maxLogic": 5,
+          "maxIntuition": 5,
+          "maxCharisma": 4,
+          "racialTraits": [
+            "thermographic-vision",
+            "troll-increased-reach",
+            "troll-dermal-armor",
+            "troll-lifetyle-increase"
+          ]
+        }
+      ]
     }
   },
   "rules": {
@@ -337,23 +529,23 @@
             "options": [
               {
                 "metatype": "human",
-                "edge": 9
+                "specialAttributePoints": 9
               },
               {
                 "metatype": "elf",
-                "edge": 8
+                "specialAttributePoints": 8
               },
               {
                 "metatype": "dwarf",
-                "edge": 7
+                "specialAttributePoints": 7
               },
               {
                 "metatype": "ork",
-                "edge": 7
+                "specialAttributePoints": 7
               },
               {
                 "metatype": "troll",
-                "edge": 5
+                "specialAttributePoints": 5
               }
             ]
           },
@@ -409,23 +601,23 @@
             "options": [
               {
                 "metatype": "human",
-                "edge": 7
+                "specialAttributePoints": 7
               },
               {
                 "metatype": "elf",
-                "edge": 6
+                "specialAttributePoints": 6
               },
               {
                 "metatype": "dwarf",
-                "edge": 4
+                "specialAttributePoints": 4
               },
               {
                 "metatype": "ork",
-                "edge": 4
+                "specialAttributePoints": 4
               },
               {
                 "metatype": "troll",
-                "edge": 0
+                "specialAttributePoints": 0
               }
             ]
           },
@@ -502,19 +694,19 @@
             "options": [
               {
                 "metatype": "human",
-                "edge": 5
+                "specialAttributePoints": 5
               },
               {
                 "metatype": "elf",
-                "edge": 3
+                "specialAttributePoints": 3
               },
               {
                 "metatype": "dwarf",
-                "edge": 1
+                "specialAttributePoints": 1
               },
               {
                 "metatype": "ork",
-                "edge": 0
+                "specialAttributePoints": 0
               }
             ]
           },
@@ -581,11 +773,11 @@
             "options": [
               {
                 "metatype": "human",
-                "edge": 3
+                "specialAttributePoints": 3
               },
               {
                 "metatype": "elf",
-                "edge": 0
+                "specialAttributePoints": 0
               }
             ]
           },
@@ -623,7 +815,7 @@
             "options": [
               {
                 "metatype": "human",
-                "edge": 1
+                "specialAttributePoints": 1
               }
             ]
           },
