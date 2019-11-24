@@ -30,6 +30,7 @@
                 "name": "priorityA",
                 "type": "container",
                 "direction": "horizontal",
+                "border": "black",
                 "children": [
                   {
                     "name": "priorityA",
@@ -37,24 +38,243 @@
                     "text": "Priority A"
                   },
                   {
-                    "name": "priorityA",
-                    "type": "select",
-                    "bind": "$state.character.creation.priorities.A",
-                    "items": {
-                      "values": "#Object.keys($rules.characterCreation.options)",
-                      "translate": "# $rules.characterCreation.options[$this]"
-                    }
+                    "name": "priorityASelection",
+                    "type": "label",
+                    "text": "#$rules.characterCreation.options[$state.character.creation.priorities.A]"
+                  },
+                  {
+                    "name": "priorityAControls",
+                    "type": "container",
+                    "direction": "vertical",
+                    "children": [
+                      {
+                        "name": "priorityAUp",
+                        "type": "button",
+                        "text": " ",
+                        "hiddenWhen": "#true"
+                      },
+                      {
+                        "name": "priorityADown",
+                        "type": "button",
+                        "text": "▼",
+                        "action": {
+                          "type": "SWAP",
+                          "path": [
+                            "$state.character.creation.priorities.A",
+                            "$state.character.creation.priorities.B"
+                          ]
+                        }
+                      }
+                    ]
                   },
                   {
                     "name": "priorityADescription",
+                    "type": "label",
+                    "text": "# _.get($rules, 'characterCreation.priorities.A[' +  $state.character.creation.priorities.A + '].description')"
+                  }
+                ]
+              },
+              {
+                "name": "priorityB",
+                "type": "container",
+                "direction": "horizontal",
+                "border": "black",
+                "children": [
+                  {
+                    "name": "priorityB",
+                    "type": "label",
+                    "text": "Priority B"
+                  },
+                  {
+                    "name": "priorityBSelection",
+                    "type": "label",
+                    "text": "#$rules.characterCreation.options[$state.character.creation.priorities.B]"
+                  },
+                  {
+                    "name": "priorityBControls",
                     "type": "container",
+                    "direction": "vertical",
                     "children": [
                       {
-                        "name": "priorityAChoiceDescription",
-                        "type": "label",
-                        "text": "# _.get($rules, 'characterCreation.priorities.A[' +  $state.character.creation.priorities.A + '].description')"
+                        "name": "priorityBUp",
+                        "type": "button",
+                        "text": "▲",
+                        "action": {
+                          "type": "SWAP",
+                          "path": [
+                            "$state.character.creation.priorities.A",
+                            "$state.character.creation.priorities.B"
+                          ]
+                        }
+                      },
+                      {
+                        "name": "priorityBDown",
+                        "type": "button",
+                        "text": "▼",
+                        "action": {
+                          "type": "SWAP",
+                          "path": [
+                            "$state.character.creation.priorities.B",
+                            "$state.character.creation.priorities.C"
+                          ]
+                        }
                       }
                     ]
+                  },
+                  {
+                    "name": "priorityBDescription",
+                    "type": "label",
+                    "text": "# _.get($rules, 'characterCreation.priorities.B[' +  $state.character.creation.priorities.B + '].description')"
+                  }
+                ]
+              },
+              {
+                "name": "priorityC",
+                "type": "container",
+                "direction": "horizontal",
+                "border": "black",
+                "children": [
+                  {
+                    "name": "priorityC",
+                    "type": "label",
+                    "text": "Priority C"
+                  },
+                  {
+                    "name": "priorityCSelection",
+                    "type": "label",
+                    "text": "#$rules.characterCreation.options[$state.character.creation.priorities.C]"
+                  },
+                  {
+                    "name": "priorityCControls",
+                    "type": "container",
+                    "direction": "vertical",
+                    "children": [
+                      {
+                        "name": "priorityCUp",
+                        "type": "button",
+                        "text": "▲",
+                        "action": {
+                          "type": "SWAP",
+                          "path": [
+                            "$state.character.creation.priorities.B",
+                            "$state.character.creation.priorities.C"
+                          ]
+                        }
+                      },
+                      {
+                        "name": "priorityCDown",
+                        "type": "button",
+                        "text": "▼",
+                        "action": {
+                          "type": "SWAP",
+                          "path": [
+                            "$state.character.creation.priorities.C",
+                            "$state.character.creation.priorities.D"
+                          ]
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "name": "priorityCDescription",
+                    "type": "label",
+                    "text": "# _.get($rules, 'characterCreation.priorities.C[' +  $state.character.creation.priorities.C + '].description')"
+                  }
+                ]
+              },
+              {
+                "name": "priorityD",
+                "type": "container",
+                "direction": "horizontal",
+                "border": "black",
+                "children": [
+                  {
+                    "name": "priorityD",
+                    "type": "label",
+                    "text": "Priority D"
+                  },
+                  {
+                    "name": "priorityDSelection",
+                    "type": "label",
+                    "text": "#$rules.characterCreation.options[$state.character.creation.priorities.D]"
+                  },
+                  {
+                    "name": "priorityDControls",
+                    "type": "container",
+                    "direction": "vertical",
+                    "children": [
+                      {
+                        "name": "priorityDUp",
+                        "type": "button",
+                        "text": "▲",
+                        "action": {
+                          "type": "SWAP",
+                          "path": [
+                            "$state.character.creation.priorities.C",
+                            "$state.character.creation.priorities.D"
+                          ]
+                        }
+                      },
+                      {
+                        "name": "priorityDDown",
+                        "type": "button",
+                        "text": "▼",
+                        "action": {
+                          "type": "SWAP",
+                          "path": [
+                            "$state.character.creation.priorities.D",
+                            "$state.character.creation.priorities.E"
+                          ]
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "name": "priorityDDescription",
+                    "type": "label",
+                    "text": "# _.get($rules, 'characterCreation.priorities.D[' +  $state.character.creation.priorities.D + '].description')"
+                  }
+                ]
+              },
+              {
+                "name": "priorityE",
+                "type": "container",
+                "direction": "horizontal",
+                "border": "black",
+                "children": [
+                  {
+                    "name": "priorityE",
+                    "type": "label",
+                    "text": "Priority E"
+                  },
+                  {
+                    "name": "priorityESelection",
+                    "type": "label",
+                    "text": "#$rules.characterCreation.options[$state.character.creation.priorities.E]"
+                  },
+                  {
+                    "name": "priorityEControls",
+                    "type": "container",
+                    "direction": "vertical",
+                    "children": [
+                      {
+                        "name": "priorityEUp",
+                        "type": "button",
+                        "text": "▲",
+                        "action": {
+                          "type": "SWAP",
+                          "path": [
+                            "$state.character.creation.priorities.D",
+                            "$state.character.creation.priorities.E"
+                          ]
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "name": "priorityEDescription",
+                    "type": "label",
+                    "text": "# _.get($rules, 'characterCreation.priorities.E[' +  $state.character.creation.priorities.E + '].description')"
                   }
                 ]
               }
@@ -78,11 +298,26 @@
     },
     "priorities": {
       "properties": {
-        "A": "string",
-        "B": "string",
-        "C": "string",
-        "D": "string",
-        "E": "string"
+        "A": {
+          "type": "string",
+          "default": "metatype"
+        },
+        "B": {
+          "type": "string",
+          "default": "attributes"
+        },
+        "C": {
+          "type": "string",
+          "default": "special"
+        },
+        "D": {
+          "type": "string",
+          "default": "skills"
+        },
+        "E": {
+          "type": "string",
+          "default": "resources"
+        }
       }
     }
   },
@@ -165,11 +400,12 @@
             "maxGroups": 10
           },
           "resources": {
-            "description" : "450000￥"
+            "description": "450,000￥"
           }
         },
         "B": {
           "metatype": {
+            "description": "Human (7), Elf (6), Dwarf (4), Ork (4), Troll (0)",
             "options": [
               {
                 "metatype": "human",
@@ -193,67 +429,76 @@
               }
             ]
           },
-          "attributePoints": 20,
-          "special": [
-            {
-              "types": [
-                "magician",
-                "mystic adept"
-              ],
-              "magicRating": 4,
-              "skills": {
-                "magic": {
+          "attributes": {
+            "description": 20
+          },
+          "special": {
+            "description": "Magician or Mystic Adept: Magic 4, 2 x Rating 4 Magical Skills, 7 spells; Technomander: Resonance 4, 2 x rating 4 Resonance skills, 2 x complex forms; Adept: Magic 6, 1 x Rating 4 Active skill; Aspected Magician: Magic 5, 1 x Rating 4 Magical skill group",
+            "options": [
+              {
+                "types": [
+                  "magician",
+                  "mystic adept"
+                ],
+                "magicRating": 4,
+                "skills": {
+                  "magic": {
+                    "quantity": 2,
+                    "rating": 4
+                  }
+                },
+                "spells": 7
+              },
+              {
+                "types": [
+                  "technomancer"
+                ],
+                "resonanceRating": 4,
+                "resonanceSkills": {
                   "quantity": 2,
                   "rating": 4
+                },
+                "complexForms": 2
+              },
+              {
+                "types": [
+                  "adept"
+                ],
+                "magicRating": 6,
+                "skills": {
+                  "active": {
+                    "quantity": 1,
+                    "rating": 4
+                  }
                 }
               },
-              "spells": 7
-            },
-            {
-              "types": [
-                "technomancer"
-              ],
-              "resonanceRating": 4,
-              "resonanceSkills": {
-                "quantity": 2,
-                "rating": 4
-              },
-              "complexForms": 2
-            },
-            {
-              "types": [
-                "adept"
-              ],
-              "magicRating": 6,
-              "skills": {
-                "active": {
-                  "quantity": 1,
-                  "rating": 4
+              {
+                "types": [
+                  "aspected magician"
+                ],
+                "magicRating": 5,
+                "skills": {
+                  "magic": {
+                    "group": true,
+                    "quantity": 1,
+                    "rating": 4
+                  }
                 }
               }
-            },
-            {
-              "types": [
-                "aspected magician"
-              ],
-              "magicRating": 5,
-              "skills": {
-                "magic": {
-                  "group": true,
-                  "quantity": 1,
-                  "rating": 4
-                }
-              }
-            }
-          ],
+            ]
+          },
           "skills": {
+            "description": "36/5",
             "totalPoints": 36,
             "maxGroups": 5
           },
-          "resources": 275000
+          "resources": {
+            "description": "275,000￥"
+          }
         },
         "C": {
           "metatype": {
+            "description": "Human (5), Elf (3), Dwarf (1), Ork (0)",
             "options": [
               {
                 "metatype": "human",
@@ -273,57 +518,66 @@
               }
             ]
           },
-          "attributePoints": 16,
-          "special": [
-            {
-              "types": [
-                "magician",
-                "mystic adept"
-              ],
-              "magicRating": 3,
-              "spells": 7
-            },
-            {
-              "types": [
-                "technomancer"
-              ],
-              "resonanceRating": 3,
-              "complexForms": 1
-            },
-            {
-              "types": [
-                "adept"
-              ],
-              "magicRating": 4,
-              "skills": {
-                "active": {
-                  "quantity": 1,
-                  "rating": 2
+          "attributePoints": {
+            "description": 16
+          },
+          "special": {
+            "description": "Magician or Mystic Adept: Magic 3, 5 spells; Technomancer: Resonance 3, 1 complex form; Adept: Magic 4, 1 x Rating 2 Active skill; Aspected Magician: Magic 3, 1 x Rating 2 Magical skill group",
+            "options": [
+              {
+                "types": [
+                  "magician",
+                  "mystic adept"
+                ],
+                "magicRating": 3,
+                "spells": 7
+              },
+              {
+                "types": [
+                  "technomancer"
+                ],
+                "resonanceRating": 3,
+                "complexForms": 1
+              },
+              {
+                "types": [
+                  "adept"
+                ],
+                "magicRating": 4,
+                "skills": {
+                  "active": {
+                    "quantity": 1,
+                    "rating": 2
+                  }
+                }
+              },
+              {
+                "types": [
+                  "aspected magician"
+                ],
+                "magicRating": 3,
+                "skills": {
+                  "magic": {
+                    "group": true,
+                    "quantity": 1,
+                    "rating": 2
+                  }
                 }
               }
-            },
-            {
-              "types": [
-                "aspected magician"
-              ],
-              "magicRating": 3,
-              "skills": {
-                "magic": {
-                  "group": true,
-                  "quantity": 1,
-                  "rating": 2
-                }
-              }
-            }
-          ],
+            ]
+          },
           "skills": {
+            "description": "28/2",
             "totalPoints": 28,
             "maxGroups": 2
           },
-          "resources": 140000
+          "resources": {
+            "description": "140,000￥"
+          }
         },
         "D": {
           "metatype": {
+            "description": "Human (3), Elf (0)",
             "options": [
               {
                 "metatype": "human",
@@ -335,28 +589,37 @@
               }
             ]
           },
-          "attributePoints": 14,
-          "special": [
-            {
-              "types": [
-                "adept"
-              ],
-              "magicRating": 2
-            },
-            {
-              "types": [
-                "aspected magician"
-              ],
-              "magicRating": 2
-            }
-          ],
+          "attributePoints": {
+            "description": 14
+          },
+          "special": {
+            "description": "Adept: Magic 2; Aspected Magician: Magic 2",
+            "options": [
+              {
+                "types": [
+                  "adept"
+                ],
+                "magicRating": 2
+              },
+              {
+                "types": [
+                  "aspected magician"
+                ],
+                "magicRating": 2
+              }
+            ]
+          },
           "skills": {
+            "description": "22/0",
             "totalPoints": 22
           },
-          "resources": 50000
+          "resources": {
+            "description": "50000￥"
+          }
         },
         "E": {
           "metatype": {
+            "description": "Human (0)",
             "options": [
               {
                 "metatype": "human",
@@ -364,13 +627,20 @@
               }
             ]
           },
-          "attributePoints": 12,
-          "special": [
-          ],
+          "attributePoints": {
+            "description": 12
+          },
+          "special": {
+            "description": "None"
+          },
           "skills": {
+            "description": "18/0",
             "totalPoints": 18
           },
-          "resources": 6000
+          "resources": {
+            "money": 6000,
+            "description": "6000￥"
+          }
         }
       }
     }
@@ -378,7 +648,7 @@
   "hooks": [
     {
       "before": "SET",
-      "when": "$this.path === '$state.character.priorities"
+      "when": "$this.path === '$state.character.creation.priorities"
     }
   ]
 }
