@@ -291,7 +291,7 @@
             "type": "select",
             "bind": "$state.character.creation.metatypeChoice",
             "items": {
-              "values": "#$rules.characterCreation.priorities[$state.character.creation.priorities.metatype].metatype.options",
+              "values": "#_.get($rules.characterCreation.priorities, '[' + $state.character.creation.priorities.metatype + '].metatype.options', [])",
               "translate": "#_.get($models, 'metatype.values[' + $this.metatype + '].name')"
             }
           },
@@ -299,6 +299,61 @@
             "name": "startingEdge",
             "type": "label",
             "text": "#'Special Attribute Points: ' + $state.character.creation.metatypeChoice.specialAttributePoints"
+          },
+          {
+            "name": "attributes",
+            "type": "container",
+            "direction": "horizontal",
+            "children": [
+              {
+                "name": "body",
+                "type": "number",
+                "label": "Body",
+                "bind": "$state.character.baseAttributes.body"
+              },
+              {
+                "name": "agility",
+                "type": "number",
+                "label": "Agility",
+                "bind": "$state.character.baseAttributes.agility"
+              },
+              {
+                "name": "reaction",
+                "type": "number",
+                "label": "Reaction",
+                "bind": "$state.character.baseAttributes.reaction"
+              },
+              {
+                "name": "strength",
+                "type": "number",
+                "label": "Strength",
+                "bind": "$state.character.baseAttributes.strength"
+              },
+              {
+                "name": "willpower",
+                "type": "number",
+                "label": "Willpower",
+                "bind": "$state.character.baseAttributes.willpower"
+              },
+              {
+                "name": "logic",
+                "type": "number",
+                "label": "Logic",
+                "bind": "$state.character.baseAttributes.logic"
+              },
+              {
+                "name": "intuition",
+                "type": "number",
+                "label": "Intuition",
+                "bind": "$state.character.baseAttributes.intuition"
+              },
+              {
+                "name": "charisma",
+                "type": "number",
+                "label": "Charisma",
+                "bind": "$state.character.baseAttributes.charisma"
+              }
+            ]
           }
         ]
       }
@@ -309,7 +364,65 @@
       "properties": {
         "name": "string",
         "creation": "creation",
-        "metatype": "metatype"
+        "metatype": {
+          "type": "metatype",
+          "derivedFrom": [
+            "#$models.metatype.values[$state.character.creation.metatypeChoice.metatype]"
+          ]
+        },
+        "baseAttributes": "characterAttributes"
+      }
+    },
+    "characterAttributes": {
+      "properties": {
+        "body": {
+          "type": "number",
+          "baseValue": [
+            "#$state.character.metatype.minBody"
+          ]
+        },
+        "agility": {
+          "type": "number",
+          "baseValue": [
+            "#$state.character.metatype.minAgility"
+          ]
+        },
+        "reaction": {
+          "type": "number",
+          "baseValue": [
+            "#$state.character.metatype.minReaction"
+          ]
+        },
+        "strength": {
+          "type": "number",
+          "baseValue": [
+            "#$state.character.metatype.minStrength"
+          ]
+        },
+        "willpower": {
+          "type": "number",
+          "baseValue": [
+            "#$state.character.metatype.minWillpower"
+          ]
+        },
+        "logic": {
+          "type": "number",
+          "baseValue": [
+            "#$state.character.metatype.minLogic"
+          ]
+        },
+        "intuition": {
+          "type": "number",
+          "baseValue": [
+            "#$state.character.metatype.minIntuition"
+          ]
+        },
+        "charisma": {
+          "type": "number",
+          "baseValue": [
+            "#$state.character.metatype.minCharisma"
+          ]
+        }
       }
     },
     "creation": {
@@ -348,23 +461,33 @@
         },
         "metatype": {
           "type": "string",
-          "derivedFrom": ["#Object.entries($state.character.creation.priorities).find(p => p[1] === 'metatype')[0]"]
+          "derivedFrom": [
+            "#Object.entries($state.character.creation.priorities).find(p => p[1] === 'metatype')[0]"
+          ]
         },
         "attributes": {
           "type": "string",
-          "derivedFrom": ["#Object.entries($state.character.creation.priorities).find(p => p[1] === 'attributes')[0]"]
+          "derivedFrom": [
+            "#Object.entries($state.character.creation.priorities).find(p => p[1] === 'attributes')[0]"
+          ]
         },
         "special": {
           "type": "string",
-          "derivedFrom": ["#Object.entries($state.character.creation.priorities).find(p => p[1] === 'special')[0]"]
+          "derivedFrom": [
+            "#Object.entries($state.character.creation.priorities).find(p => p[1] === 'special')[0]"
+          ]
         },
         "skills": {
           "type": "string",
-          "derivedFrom": ["#Object.entries($state.character.creation.priorities).find(p => p[1] === 'skills')[0]"]
+          "derivedFrom": [
+            "#Object.entries($state.character.creation.priorities).find(p => p[1] === 'skills')[0]"
+          ]
         },
         "resources": {
           "type": "string",
-          "derivedFrom": ["#Object.entries($state.character.creation.priorities).find(p => p[1] === 'resources')[0]"]
+          "derivedFrom": [
+            "#Object.entries($state.character.creation.priorities).find(p => p[1] === 'resources')[0]"
+          ]
         }
       }
     },
@@ -396,7 +519,7 @@
           "type": "number",
           "default": 6
         },
-        "minStrength":{
+        "minStrength": {
           "type": "number",
           "default": 1
         },
@@ -511,6 +634,9 @@
           ]
         }
       ]
+    },
+    "racialTrait": {
+      "properties": {}
     }
   },
   "rules": {
