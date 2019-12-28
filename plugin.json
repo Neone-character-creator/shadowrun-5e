@@ -377,50 +377,50 @@
       "properties": {
         "body": {
           "type": "number",
-          "baseValue": [
-            "#$state.character.metatype.minBody"
+          "derivedFrom": [
+            "#_.get($state, 'character.metatype.minBody')"
           ]
         },
         "agility": {
           "type": "number",
-          "baseValue": [
-            "#$state.character.metatype.minAgility"
+          "derivedFrom": [
+            "#_.get($state, 'character.metatype.minAgility')"
           ]
         },
         "reaction": {
           "type": "number",
-          "baseValue": [
-            "#$state.character.metatype.minReaction"
+          "derivedFrom": [
+            "#_.get($state, 'character.metatype.minReaction')"
           ]
         },
         "strength": {
           "type": "number",
-          "baseValue": [
-            "#$state.character.metatype.minStrength"
+          "derivedFrom": [
+            "#_.get($state, 'character.metatype.minStrength')"
           ]
         },
         "willpower": {
           "type": "number",
-          "baseValue": [
-            "#$state.character.metatype.minWillpower"
+          "derivedFrom": [
+            "#_.get($state, 'character.metatype.minWillpower')"
           ]
         },
         "logic": {
           "type": "number",
-          "baseValue": [
-            "#$state.character.metatype.minLogic"
+          "derivedFrom": [
+            "#_.get($state, 'character.metatype.minLogic')"
           ]
         },
         "intuition": {
           "type": "number",
-          "baseValue": [
-            "#$state.character.metatype.minIntuition"
+          "derivedFrom": [
+            "#_.get($state, 'character.metatype.minIntuition')"
           ]
         },
         "charisma": {
           "type": "number",
-          "baseValue": [
-            "#$state.character.metatype.minCharisma"
+          "derivedFrom": [
+            "#_.get($state, 'character.metatype.minCharisma')"
           ]
         }
       }
